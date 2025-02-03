@@ -1,16 +1,13 @@
-'use client';
-
-import React from 'react';
+'use client'
+import { signIn, useSession } from 'next-auth/react';
 
 const LoginButton = () => {
-  const handleLogin = () => {
-    // Redirect to the API login route
-    window.location.href = '/api/login';
-  };
-
+  const {data: session} = useSession();
+  if (session) return null; // Don't show button if already logged in
+  
   return (
     <button
-      onClick={handleLogin}
+      onClick={() => signIn('spotify')}
       className="bg-green-500 text-white px-6 py-3 rounded-full hover:bg-green-600 transition-colors"
     >
       Login with Spotify
